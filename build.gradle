@@ -63,14 +63,6 @@ repositories {
   maven {
     url = 'https://oss.sonatype.org/content/repositories/releases'
   }
-  maven {
-    name = "GitHubPackages"
-    url = uri("https://maven.pkg.github.com/xjmusic/javacv-example")
-    credentials {
-      username = localProperties.getProperty("repo.username") ?: System.getenv("GITHUB_ACTOR")
-      password = localProperties.getProperty("repo.token") ?: System.getenv("GITHUB_TOKEN")
-    }
-  }
 }
 
 javafx {
@@ -111,19 +103,12 @@ dependencies {
   implementation "org.openjfx:javafx-fxml:${rootProject.ext.javaFxVersion}"
   implementation "org.openjfx:javafx-graphics:${rootProject.ext.javaFxVersion}"
   implementation "org.springframework.boot:spring-boot-starter-logging:${rootProject.ext.springBootVersion}"
-  implementation "org.springframework.boot:spring-boot-starter-web:${rootProject.ext.springBootVersion}"
   implementation "org.springframework.boot:spring-boot-starter:${rootProject.ext.springBootVersion}"
-  implementation 'com.github.rholder:snowball-stemmer:1.3.0.581.1'
-  implementation 'com.typesafe:config:1.4.2'
   implementation 'commons-codec:commons-codec:1.15'
   implementation 'commons-io:commons-io:2.11.0'
-  implementation 'io.projectreactor.tools:blockhound:1.0.6.RELEASE'
-  implementation 'me.xdrop:fuzzywuzzy:1.4.0'
-  implementation 'org.apache.httpcomponents:httpclient:4.5.14'
   implementation 'org.bytedeco:ffmpeg-platform-gpl:6.0-1.5.9' // Optional GPL builds with (almost) everything enabled
   implementation 'org.bytedeco:flandmark-platform:1.07-1.5.8' // Required by org.bytedeco.javacv
   implementation 'org.bytedeco:javacv-platform:1.5.9'
-  implementation 'org.reflections:reflections:0.10.1'
   implementation 'org.reflections:reflections:0.10.2'
   testImplementation "org.junit.jupiter:junit-jupiter-api:${rootProject.ext.junitVersion}"
   testImplementation 'org.hamcrest:hamcrest-library:2.2'

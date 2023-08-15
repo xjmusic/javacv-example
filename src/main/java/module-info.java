@@ -1,4 +1,4 @@
-module workstation.gui.main {
+module main {
   requires jakarta.annotation;
   requires java.desktop;
   requires javafx.base;
@@ -10,16 +10,12 @@ module workstation.gui.main {
   requires com.fasterxml.jackson.databind;
   requires org.apache.commons.codec;
   requires org.apache.commons.io;
-  requires org.apache.httpcomponents.httpclient;
-  requires org.apache.httpcomponents.httpcore;
-  requires me.xdrop.fuzzywuzzy;
   requires org.slf4j;
   requires spring.beans;
   requires spring.core;
   requires spring.boot.autoconfigure;
   requires spring.boot;
   requires spring.context;
-  requires spring.web;
   requires org.bytedeco.flandmark.platform;
   requires org.bytedeco.flandmark;
   requires org.bytedeco.javacv.platform;

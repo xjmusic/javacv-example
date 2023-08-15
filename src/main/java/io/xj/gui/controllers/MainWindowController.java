@@ -96,6 +96,7 @@ public class MainWindowController {
 
   public void start() {
     onStatusUpdate(FabricationStatus.Starting);
+    fabricationService.setSeconds(Integer.parseInt(fieldOutputSeconds.getText()));
     fabricationService.setOnReady((WorkerStateEvent ignored) -> onStatusUpdate(FabricationStatus.Ready));
     fabricationService.setOnRunning((WorkerStateEvent ignored) -> onStatusUpdate(FabricationStatus.Active));
     fabricationService.setOnSucceeded((WorkerStateEvent ignored) -> onStatusUpdate(FabricationStatus.Done));
@@ -168,12 +169,16 @@ public class MainWindowController {
   }
 
   private void enableDarkTheme() {
-    mainWindowScene.getStylesheets().remove(lightTheme);
-    mainWindowScene.getStylesheets().add(darkTheme);
+    if (Objects.nonNull(mainWindowScene)) {
+      mainWindowScene.getStylesheets().remove(lightTheme);
+      mainWindowScene.getStylesheets().add(darkTheme);
+    }
   }
 
   private void disableDarkTheme() {
-    mainWindowScene.getStylesheets().remove(darkTheme);
-    mainWindowScene.getStylesheets().add(lightTheme);
+    if (Objects.nonNull(mainWindowScene)) {
+      mainWindowScene.getStylesheets().remove(darkTheme);
+      mainWindowScene.getStylesheets().add(lightTheme);
+    }
   }
 }
