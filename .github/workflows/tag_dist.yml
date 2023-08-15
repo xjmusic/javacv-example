@@ -76,7 +76,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: gui/build/dist/javacv-example-${{ needs.version.outputs.version }}.zip
+          file: build/dist/javacv-example-${{ needs.version.outputs.version }}.zip
           asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-amd64.jar.zip
           tag: ${{ github.ref }}
           overwrite: true
@@ -124,7 +124,7 @@ jobs:
 #        uses: svenstaro/upload-release-action@v2
 #        with:
 #          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: gui/build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.dmg
+#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.dmg
 #          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-dmg
 #          tag: ${{ github.ref }}
 #          overwrite: true
@@ -134,7 +134,7 @@ jobs:
 #        uses: svenstaro/upload-release-action@v2
 #        with:
 #          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: gui/build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.exe
+#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.exe
 #          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-exe
 #          tag: ${{ github.ref }}
 #          overwrite: true
@@ -144,7 +144,7 @@ jobs:
 #        uses: svenstaro/upload-release-action@v2
 #        with:
 #          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: gui/build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.msi
+#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.msi
 #          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-msi
 #          tag: ${{ github.ref }}
 #          overwrite: true
@@ -154,7 +154,7 @@ jobs:
 #        uses: svenstaro/upload-release-action@v2
 #        with:
 #          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: gui/build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.deb
+#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.deb
 #          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-deb
 #          tag: ${{ github.ref }}
 #          overwrite: true
@@ -164,7 +164,7 @@ jobs:
 #        uses: svenstaro/upload-release-action@v2
 #        with:
 #          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: gui/build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.rpm
+#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.rpm
 #          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-rpm
 #          tag: ${{ github.ref }}
 #          overwrite: true
