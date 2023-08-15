@@ -8,9 +8,6 @@ on:
 
 jobs:
   PullRequest:
-    env:
-      REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-      REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
     name: Gradle
     runs-on: ubuntu-latest
     permissions: read-all

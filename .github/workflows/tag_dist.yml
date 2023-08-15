@@ -42,8 +42,6 @@ jobs:
     needs: version
     name: JAR [${{ matrix.os }}-JDK${{ matrix.java }}]
     env:
-      REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-      REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
       GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions: write-all
@@ -84,9 +82,6 @@ jobs:
   distribute_gui_installer:
     needs: version
     name: Installer [${{ matrix.os }}-JDK${{ matrix.java }}]
-    env:
-      REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-      REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
     permissions: write-all
     runs-on: ${{ matrix.os }}
     strategy:

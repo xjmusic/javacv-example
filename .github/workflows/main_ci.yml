@@ -7,9 +7,6 @@ on:
 
 jobs:
   CI:
-    env:
-      REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
-      REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
     name: Continuous Integration
     runs-on: ubuntu-22.04
     permissions: write-all
