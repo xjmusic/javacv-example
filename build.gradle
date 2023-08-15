@@ -11,34 +11,22 @@ plugins {
 }
 
 ext {
-  jacksonAnnotationsVersion = '2.15.0'
   javaFxVersion = '18.0.2'
-  jooqVersion = '3.18.5'
   junitVersion = '5.9.2'
-  jupiterVersion = '5.8.1'
   logbackVersion = '1.4.11'
   springBootVersion = '3.1.2'
-  springTestVersion = '6.0.11'
-  // private
-  xjModelsVersion = '0.5.25'
 }
 
-Properties localProperties = new Properties()
-def localPropertiesFile = project.rootProject.file('gradle-local.properties')
-if (localPropertiesFile.exists()) {
-  localProperties.load(localPropertiesFile.newDataInputStream())
-}
+group = 'io.xj'
 
-allprojects {
-  group = 'io.xj'
+sourceCompatibility = JavaVersion.VERSION_18
+targetCompatibility = JavaVersion.VERSION_18
 
-  sourceCompatibility = JavaVersion.VERSION_18
-  targetCompatibility = JavaVersion.VERSION_18
+mainClassName = 'io.xj.gui.WorkstationGuiApplication'
 
-  tasks.withType(JavaCompile).tap {
-    configureEach {
-      options.encoding = 'UTF-8'
-    }
+tasks.withType(JavaCompile).tap {
+  configureEach {
+    options.encoding = 'UTF-8'
   }
 }
 
@@ -60,9 +48,6 @@ repositories {
   maven {
     url = 'https://packages.confluent.io/maven/'
   }
-  maven {
-    url = 'https://oss.sonatype.org/content/repositories/releases'
-  }
 }
 
 javafx {
@@ -77,8 +62,6 @@ jlink {
   // imageZip = file("$buildDir/image-zip/javacv-example.zip")
   // options = ['--bind-services', '--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
   addExtraDependencies 'javafx'
-  addExtraDependencies 'jooq'
-  addExtraDependencies 'jackson'
 
   launcher {
     name = 'javacv-example'
@@ -94,10 +77,6 @@ jlink {
 dependencies {
   implementation "ch.qos.logback:logback-classic:${rootProject.ext.logbackVersion}"
   implementation "ch.qos.logback:logback-core:${rootProject.ext.logbackVersion}"
-  implementation "com.fasterxml.jackson.core:jackson-annotations:${rootProject.ext.jacksonAnnotationsVersion}"
-  implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${rootProject.ext.jacksonAnnotationsVersion}"
-  implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${rootProject.ext.jacksonAnnotationsVersion}"
-  implementation "org.jooq:jooq:${rootProject.ext.jooqVersion}"
   implementation "org.openjfx:javafx-base:${rootProject.ext.javaFxVersion}"
   implementation "org.openjfx:javafx-controls:${rootProject.ext.javaFxVersion}"
   implementation "org.openjfx:javafx-fxml:${rootProject.ext.javaFxVersion}"
@@ -115,8 +94,6 @@ dependencies {
   testImplementation 'org.mockito:mockito-junit-jupiter'
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${rootProject.ext.junitVersion}"
 }
-
-mainClassName = 'io.xj.gui.WorkstationGuiApplication'
 
 //noinspection ConfigurationAvoidance
 task 'bootJarZip'(type: Zip) {
