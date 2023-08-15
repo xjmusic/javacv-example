@@ -1,0 +1,157 @@
+plugins {
+  id 'java'
+  id 'application'
+  id 'distribution'
+  //
+  id 'de.undercouch.download' version "4.0.4"
+  id 'org.ajoberstar.grgit' version '4.1.0'
+  id "org.beryx.jlink" version "2.24.1"
+  id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+  id 'org.openjfx.javafxplugin' version '0.0.14'
+  id 'org.springframework.boot' version '3.1.2' // must match springBootVersion below
+}
+
+ext {
+  jacksonAnnotationsVersion = '2.15.0'
+  javaFxVersion = '18.0.2'
+  jooqVersion = '3.18.5'
+  junitVersion = '5.9.2'
+  jupiterVersion = '5.8.1'
+  logbackVersion = '1.4.11'
+  springBootVersion = '3.1.2'
+  springTestVersion = '6.0.11'
+  // private
+  xjModelsVersion = '0.5.25'
+}
+
+Properties localProperties = new Properties()
+def localPropertiesFile = project.rootProject.file('gradle-local.properties')
+if (localPropertiesFile.exists()) {
+  localProperties.load(localPropertiesFile.newDataInputStream())
+}
+
+allprojects {
+  group = 'io.xj'
+
+  sourceCompatibility = JavaVersion.VERSION_18
+  targetCompatibility = JavaVersion.VERSION_18
+
+  tasks.withType(JavaCompile).tap {
+    configureEach {
+      options.encoding = 'UTF-8'
+    }
+  }
+}
+
+apply plugin: 'java'
+
+configurations {
+  implementation {
+    exclude group: "commons-logging", module: "commons-logging"
+    exclude group: 'com.google.code.findbugs', module: 'jsr305'
+  }
+}
+
+repositories {
+  mavenCentral()
+  mavenLocal()
+  maven {
+    name = 'ajoberstar-backup'
+    url = 'https://ajoberstar.org/bintray-backup/'
+  }
+  maven {
+    url = 'https://repo.maven.apache.org/maven2'
+  }
+  maven {
+    url = 'https://packages.confluent.io/maven/'
+  }
+  maven {
+    url = 'https://oss.sonatype.org/content/repositories/releases'
+  }
+  maven {
+    name = "GitHubPackages"
+    url = uri("https://maven.pkg.github.com/xjmusic/javacv-example")
+    credentials {
+      username = localProperties.getProperty("repo.username") ?: System.getenv("GITHUB_ACTOR")
+      password = localProperties.getProperty("repo.token") ?: System.getenv("GITHUB_TOKEN")
+    }
+  }
+}
+
+javafx {
+  version = "${rootProject.ext.javaFxVersion}"
+  modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
+}
+
+//noinspection GroovyAssignabilityCheck
+ext.os = org.gradle.internal.os.OperatingSystem.current() as org.gradle.internal.os.OperatingSystem
+
+jlink {
+  // imageZip = file("$buildDir/image-zip/javacv-example.zip")
+  // options = ['--bind-services', '--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+  addExtraDependencies 'javafx'
+  addExtraDependencies 'jooq'
+  addExtraDependencies 'jackson'
+
+  launcher {
+    name = 'javacv-example'
+    noConsole = true
+  }
+  jpackage {
+    if (os.windows) {
+//      installerOptions = ['--win-per-user-install', '--win-dir-chooser', '--win-menu']
+    }
+  }
+}
+
+dependencies {
+  implementation "ch.qos.logback:logback-classic:${rootProject.ext.logbackVersion}"
+  implementation "ch.qos.logback:logback-core:${rootProject.ext.logbackVersion}"
+  implementation "com.fasterxml.jackson.core:jackson-annotations:${rootProject.ext.jacksonAnnotationsVersion}"
+  implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${rootProject.ext.jacksonAnnotationsVersion}"
+  implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${rootProject.ext.jacksonAnnotationsVersion}"
+  implementation "org.jooq:jooq:${rootProject.ext.jooqVersion}"
+  implementation "org.openjfx:javafx-base:${rootProject.ext.javaFxVersion}"
+  implementation "org.openjfx:javafx-controls:${rootProject.ext.javaFxVersion}"
+  implementation "org.openjfx:javafx-fxml:${rootProject.ext.javaFxVersion}"
+  implementation "org.openjfx:javafx-graphics:${rootProject.ext.javaFxVersion}"
+  implementation "org.springframework.boot:spring-boot-starter-logging:${rootProject.ext.springBootVersion}"
+  implementation "org.springframework.boot:spring-boot-starter-web:${rootProject.ext.springBootVersion}"
+  implementation "org.springframework.boot:spring-boot-starter:${rootProject.ext.springBootVersion}"
+  implementation 'com.github.rholder:snowball-stemmer:1.3.0.581.1'
+  implementation 'com.typesafe:config:1.4.2'
+  implementation 'commons-codec:commons-codec:1.15'
+  implementation 'commons-io:commons-io:2.11.0'
+  implementation 'io.projectreactor.tools:blockhound:1.0.6.RELEASE'
+  implementation 'me.xdrop:fuzzywuzzy:1.4.0'
+  implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+  implementation 'org.bytedeco:ffmpeg-platform-gpl:6.0-1.5.9' // Optional GPL builds with (almost) everything enabled
+  implementation 'org.bytedeco:flandmark-platform:1.07-1.5.8' // Required by org.bytedeco.javacv
+  implementation 'org.bytedeco:javacv-platform:1.5.9'
+  implementation 'org.reflections:reflections:0.10.1'
+  implementation 'org.reflections:reflections:0.10.2'
+  testImplementation "org.junit.jupiter:junit-jupiter-api:${rootProject.ext.junitVersion}"
+  testImplementation 'org.hamcrest:hamcrest-library:2.2'
+  testImplementation 'org.mockito:mockito-junit-jupiter'
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${rootProject.ext.junitVersion}"
+}
+
+mainClassName = 'io.xj.gui.WorkstationGuiApplication'
+
+//noinspection ConfigurationAvoidance
+task 'bootJarZip'(type: Zip) {
+  dependsOn('bootJar')
+  from "build/libs/"
+  archiveBaseName = 'javacv-example'
+  include "javacv-example-${rootProject.version}.jar"
+  destinationDirectory = file("$buildDir/dist")
+}
+
+bootJar {
+  launchScript()
+  archiveBaseName = 'javacv-example'
+}
+
+test {
+  useJUnitPlatform()
+}
