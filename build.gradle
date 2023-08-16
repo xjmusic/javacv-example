@@ -7,13 +7,17 @@ plugins {
   id "org.beryx.jlink" version "2.24.1"
   id 'io.spring.dependency-management' version '1.0.15.RELEASE'
   id 'org.openjfx.javafxplugin' version '0.0.14'
-  id 'org.springframework.boot' version '3.1.2'
+  id 'org.springframework.boot' version '3.1.2' // must match springBootVersion below
+  id 'org.bytedeco.gradle-javacpp-platform' version "1.5.9"
 }
 
-def javaFxVersion = '18.0.2'
-def junitVersion = '5.9.2'
-def logbackVersion = '1.4.11'
-def springBootVersion = '3.1.2' // must match 'org.springframework.boot' plugin version above
+ext {
+  javaFxVersion = '18.0.2'
+  junitVersion = '5.9.2'
+  logbackVersion = '1.4.11'
+  springBootVersion = '3.1.2'
+  javacppPlatform = 'linux-x86_64' // add platforms based on requirement
+}
 
 group = 'io.xj'
 
