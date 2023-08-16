@@ -21,6 +21,7 @@ module main {
   requires spring.context;
   requires spring.core;
   requires spring.jcl;
+  requires org.apache.logging.log4j;
 
   opens io.xj.gui.controllers to javafx.graphics, javafx.base, javafx.fxml, javafx.controls, spring.beans;
   opens io.xj.gui.events to javafx.base, javafx.controls, javafx.fxml, javafx.graphics, spring.beans, spring.context, spring.core;

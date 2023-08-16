@@ -4,7 +4,7 @@ plugins {
   id 'distribution'
   //
   id 'de.undercouch.download' version "4.0.4"
-  id "org.beryx.jlink" version "2.24.1"
+  id "org.beryx.jlink" version "2.26.0"
   id 'io.spring.dependency-management' version '1.0.15.RELEASE'
   id 'org.openjfx.javafxplugin' version '0.0.14'
   id 'org.springframework.boot' version '3.1.2' // must match springBootVersion below
@@ -65,6 +65,8 @@ jlink {
   // options = ['--bind-services', '--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
   addExtraDependencies 'javafx'
 
+  forceMerge('log4j-api')
+
   launcher {
     name = 'javacv-example'
     noConsole = true
@@ -77,6 +79,9 @@ jlink {
 }
 
 dependencies {
+
+  implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+  implementation 'io.projectreactor.tools:blockhound:1.0.6.RELEASE'
   implementation "ch.qos.logback:logback-classic:${rootProject.ext.logbackVersion}"
   implementation "ch.qos.logback:logback-core:${rootProject.ext.logbackVersion}"
   implementation "org.openjfx:javafx-base:${rootProject.ext.javaFxVersion}"
