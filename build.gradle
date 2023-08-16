@@ -8,6 +8,7 @@ plugins {
   id 'io.spring.dependency-management' version '1.0.15.RELEASE'
   id 'org.openjfx.javafxplugin' version '0.0.14'
   id 'org.springframework.boot' version '3.1.2' // must match springBootVersion below
+  id 'org.bytedeco.gradle-javacpp-platform' version "1.5.9"
 }
 
 ext {
@@ -15,6 +16,7 @@ ext {
   junitVersion = '5.9.2'
   logbackVersion = '1.4.11'
   springBootVersion = '3.1.2'
+  javacppPlatform = 'linux-x86_64' // add platforms based on requirement
 }
 
 group = 'io.xj'
