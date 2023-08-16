@@ -84,6 +84,8 @@ dependencies {
   implementation "org.springframework.boot:spring-boot-starter:${rootProject.ext.springBootVersion}"
   implementation 'commons-codec:commons-codec:1.15'
   implementation 'commons-io:commons-io:2.11.0'
+  implementation 'io.projectreactor.tools:blockhound:1.0.6.RELEASE'
+  implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
   implementation 'org.bytedeco:ffmpeg-platform-gpl:6.0-1.5.9' // Optional GPL builds with (almost) everything enabled
   implementation 'org.bytedeco:flandmark-platform:1.07-1.5.8' // Required by org.bytedeco.javacv
   implementation 'org.bytedeco:javacv-platform:1.5.9'
