@@ -114,62 +114,86 @@ jobs:
       - name: Execute jpackage
         run: ./gradlew --info --stacktrace :jpackage
 
+      - name: Zip DMG for release
+        if: matrix.os == 'macos-latest'
+        run: zip -r build/jpackage/javacv-example-${{ needs.version.outputs.version }}.dmg.zip build/jpackage/javacv-example-${{ needs.version.outputs.version }}.dmg
+
       - name: Upload DMG to release
         if: matrix.os == 'macos-latest'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.dmg
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.dmg.zip
           asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-dmg
           tag: ${{ github.ref }}
           overwrite: true
+
+      - name: Zip PKG for release
+        if: matrix.os == 'macos-latest'
+        run: zip -r build/jpackage/javacv-example-${{ needs.version.outputs.version }}.pkg.zip build/jpackage/javacv-example-${{ needs.version.outputs.version }}.pkg
 
       - name: Upload PKG to release
         if: matrix.os == 'macos-latest'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.pkg
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.pkg.zip
           asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-pkg
           tag: ${{ github.ref }}
           overwrite: true
+
+      - name: Zip EXE for release
+        if: matrix.os == 'windows-latest'
+        run: zip -r build/jpackage/javacv-example-${{ needs.version.outputs.version }}.exe.zip build/jpackage/javacv-example-${{ needs.version.outputs.version }}.exe
 
       - name: Upload EXE to release
         if: matrix.os == 'windows-latest'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.exe
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.exe.zip
           asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-exe
           tag: ${{ github.ref }}
           overwrite: true
+
+      - name: Zip MSI for release
+        if: matrix.os == 'windows-latest'
+        run: zip -r build/jpackage/javacv-example-${{ needs.version.outputs.version }}.msi.zip build/jpackage/javacv-example-${{ needs.version.outputs.version }}.msi
 
       - name: Upload MSI to release
         if: matrix.os == 'windows-latest'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.msi
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.msi.zip
           asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-msi
           tag: ${{ github.ref }}
           overwrite: true
 
-      - name: Upload DEB to release
+#      - name: Tar/Gzip DEB for release
+#        if: matrix.os == 'ubuntu-latest'
+#        run: tar -czvf build/jpackage/javacv-example-${{ needs.version.outputs.version }}.deb.tar.gz build/jpackage/javacv-example-${{ needs.version.outputs.version }}.deb
+#
+#      - name: Upload DEB to release
+#        if: matrix.os == 'ubuntu-latest'
+#        uses: svenstaro/upload-release-action@v2
+#        with:
+#          repo_token: ${{ secrets.GITHUB_TOKEN }}
+#          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.deb
+#          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-deb
+#          tag: ${{ github.ref }}
+#          overwrite: true
+
+      - name: Tar/Gzip RPM for release
         if: matrix.os == 'ubuntu-latest'
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.deb
-          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-deb
-          tag: ${{ github.ref }}
-          overwrite: true
+        run: tar -czvf build/jpackage/javacv-example-${{ needs.version.outputs.version }}.rpm.tar.gz build/jpackage/javacv-example-${{ needs.version.outputs.version }}.rpm
 
       - name: Upload RPM to release
         if: matrix.os == 'ubuntu-latest'
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.rpm
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.rpm.tar.gz
           asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-rpm
           tag: ${{ github.ref }}
           overwrite: true
