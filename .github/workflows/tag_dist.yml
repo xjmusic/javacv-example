@@ -49,7 +49,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macOS-latest, windows-latest ]
-        java: [ '18' ]
+        java: [ '17' ]
       fail-fast: false
     steps:
 
@@ -87,7 +87,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macOS-latest, windows-latest ]
-        java: [ '18' ]
+        java: [ '17' ]
       fail-fast: false
     steps:
 
