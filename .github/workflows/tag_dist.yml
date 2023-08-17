@@ -114,53 +114,48 @@ jobs:
       - name: Execute jpackage
         run: ./gradlew --info --stacktrace :jpackage
 
-#      - name: Upload DMG to release
-#        uses: svenstaro/upload-release-action@v2
-#        with:
-#          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.dmg
-#          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-dmg
-#          tag: ${{ github.ref }}
-#          overwrite: true
-#          body: "JavaCV Example installer v${{ needs.version.outputs.version }} for ${{ matrix.os }}-jdk${{ matrix.java }}-amd64 (dmg)"
-#
-#      - name: Upload EXE to release
-#        uses: svenstaro/upload-release-action@v2
-#        with:
-#          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.exe
-#          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-exe
-#          tag: ${{ github.ref }}
-#          overwrite: true
-#          body: "JavaCV Example installer v${{ needs.version.outputs.version }} for ${{ matrix.os }}-jdk${{ matrix.java }}-amd64 (exe)"
-#
-#      - name: Upload MSI to release
-#        uses: svenstaro/upload-release-action@v2
-#        with:
-#          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.msi
-#          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-msi
-#          tag: ${{ github.ref }}
-#          overwrite: true
-#          body: "JavaCV Example installer v${{ needs.version.outputs.version }} for ${{ matrix.os }}-jdk${{ matrix.java }}-amd64 (msi)"
-#
-#      - name: Upload DEB to release
-#        uses: svenstaro/upload-release-action@v2
-#        with:
-#          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.deb
-#          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-deb
-#          tag: ${{ github.ref }}
-#          overwrite: true
-#          body: "JavaCV Example installer v${{ needs.version.outputs.version }} for ${{ matrix.os }}-jdk${{ matrix.java }}-amd64 (deb)"
-#
-#      - name: Upload RPM to release
-#        uses: svenstaro/upload-release-action@v2
-#        with:
-#          repo_token: ${{ secrets.GITHUB_TOKEN }}
-#          file: build/jpackage/javacv-example-v${{ needs.version.outputs.version }}.rpm
-#          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-rpm
-#          tag: ${{ github.ref }}
-#          overwrite: true
-#          body: "JavaCV Example installer v${{ needs.version.outputs.version }} for ${{ matrix.os }}-jdk${{ matrix.java }}-amd64 (rpm)"
-#
+      - name: Upload DMG to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.dmg
+          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-dmg
+          tag: ${{ github.ref }}
+          overwrite: true
+
+      - name: Upload EXE to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.exe
+          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-exe
+          tag: ${{ github.ref }}
+          overwrite: true
+
+      - name: Upload MSI to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.msi
+          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-msi
+          tag: ${{ github.ref }}
+          overwrite: true
+
+      - name: Upload DEB to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.deb
+          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-deb
+          tag: ${{ github.ref }}
+          overwrite: true
+
+      - name: Upload RPM to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/jpackage/javacv-example-${{ needs.version.outputs.version }}.rpm
+          asset_name: javacv-example-v${{ needs.version.outputs.version }}-${{ matrix.os }}-jdk${{ matrix.java }}-installer-rpm
+          tag: ${{ github.ref }}
+          overwrite: true
+

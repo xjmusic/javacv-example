@@ -1,4 +1,4 @@
-module main {
+module io.xj.javacv_example.main {
   requires ch.qos.logback.classic;
   requires ch.qos.logback.core;
   requires jakarta.annotation;
